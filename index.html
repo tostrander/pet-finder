@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Find-a-Pet</title>
+</head>
+<body>
+<h2>Find-a-Pet</h2>
+<label>Enter a Pet ID: <input type="text" id="pet-id"></label>
+<button id="show">Go</button>
+<div id="result"></div>
+<img id="pic" alt="picture of a pet">
+</body>
+
+<script src="//code.jquery.com/jquery.js"></script>
+<script>
+    $("#show").click(function(){
+
+        petId = $("#pet-id").val();
+        //alert(petId);
+
+        //Make an Ajax call to a PHP script
+        //$("#result").load("lookup.php", {petId: petId});
+
+        $.post (
+            "lookup.php",
+            { petId: petId },
+            function(result) {
+                $("#result").html(result);
+
+                if (result.includes("dog")) {
+                    $("#pic").attr("src", "dog.jpg");
+                }
+                else {
+                    $("#pic").hide();
+                }
+            }
+        );
+    });
+</script>
+</html>
